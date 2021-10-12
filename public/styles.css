@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+    /*.header {
+        clear: both;
+        height: 200px;
+        background-color: #FFD580;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }*/
+
+    .header {
+        clear: both;
+        height: 125px;
+        background-color: #FFD580;
+        display: flex;
+        justify-content: center;
+    }
+
+    .title-container {
+        float: left;
+        width: 70%;
+        margin: 10px 1.15%;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 4px solid #FFBF00;
+        font-size: 50px;
+    }
+
+    .credentials {
+        float: left;
+        width: 20%;
+        margin: 10px 1.15%;
+        height: 100px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    /*.title.container {
+        width: 800px;
+        height: 200px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }*/
+
+    /*.title {
+        
+    }*/
+
+    /*.heading {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+        
+    }*/
+
+    #credentials {
+        flex: right;
+        margin: 20px;
+    }
+
+    .username {
+        margin: 10px;
+        height: 75px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        border: 5px solid black;
+        background-color: white;
+    }
+    
+    #results {
+        background-image: url('/images/to-do-lists.jpeg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        /*background-color: #EAEDF0;*/
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        height: 750px;
+    }
+
+    .homepage {
+        width: 900px;
+        height: 700px;
+        border: 5px solid black;
+        background-color: #F09A9D;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        margin: 30px;
+    }
+    .detail-title {
+        margin: 40px;
+        text-align: center;
+        border-bottom: 3px solid black;
+    }
+    li {
+        font-size: 25px;
+        margin-bottom: 15px;
+    }
+
+    .to-do-lists {
+        width: 900px;
+        height: 100px;
+        border: 5px solid black;
+        background-color: #F09A9D;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 5px;
+
+    }
+    .view-tasks {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100px;
+        /*background-color: #F09A9D;    /* Red */
+    }
+
+    
+
+    .footer {
+        clear: both;
+        height: 125px;
+        background-color: #D6E9FE;
+        display: flex;
+        justify-content: center;
+    }
+
+    .column-footer {
+        float: left;
+        width: 47.5%;
+        margin: 10px 1.15%;
+        height: 100px;
+        background-color: #B2D6FF;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
