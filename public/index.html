@@ -2,22 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script defer src="/app.js"></script>
+    <title>To Do List</title>
 </head>
 <body>
-    <div>Please Enter Your Username</div>
+    <div id="results">
+        <div>Please Enter Your Username</div>
+            <div>
+                <input type="text" placeholder="Enter Username" name="existing-username" id="existing-username" required>
+                <button id="search-user">Log In</button>
+            </div>
+        <br>
+        <br><br>
+        <div>Don't have an account? Create a free username</div>
         <div>
-            <input type="text" placeholder="Enter Username" name="existing-username" id="existing-username" required>
-            <button id="search-user">Log In</button>
+            <input type="text" placeholder="Enter Username" name="new-username" id="new-username" required>
+            <button id="register-user">Register</button>
         </div>
-    <br>
-    <br><br>
-    <div>Don't have an account? Create a free username</div>
-    <div>
-        <input type="text" placeholder="Enter Username" name="new-username" id="new-username" required>
-        <button id="register-user">Register</button>
     </div>
 </body>
 </html>
