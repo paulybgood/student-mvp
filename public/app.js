@@ -10,33 +10,34 @@ $('#search-user').click (() => {
     // get the object user info from the users table to grab the user_id for the next request
     $.get(`/api/users/${userInput}`, (userData) => {
         results.empty();
-        let username = $(`<div>Username: ${userData.username}</div>`, {
-            class: "username"
-        });
+        let username = $(`<div class='username'>Username: ${userData.username}</div>`)
         results.append(username);
         //using the user_id from previous GET request to look up all of the to do lists that 
         //the user has and displaying the name
         $.get(`/api/todolist/${userData.id}`, (toDoListData) => {
             for (let i = 0; i < toDoListData.length; i++) {
                 console.log(toDoListData[i].name);
-                let toDoLists = $(`<div></div>`, {
-                    class: "to-do-lists"
+                let toDoLists = $('<div></div>', {
+                    class: 'to-do-lists'
                 });
-                let listNames = $(`<div>${toDoListData[i].name}</div>`, {
-                    class: "list-names"
-                })
-                let viewTasks = $(`<button>See Tasks</button>`, {
-                    id: `view-tasks-${toDoListData[i].id}`
-                })
+                let listNames = $(`<div class='list-names'>${toDoListData[i].name}</div>`);
+                let viewTasks = $(`<button class='view-tasks'>See Tasks</button>`);
                 results.append(toDoLists);
                 toDoLists.append(listNames);
                 toDoLists.append(viewTasks);
 
             }
+            let toDoLists = $('<div></div>', {
+                class: 'to-do-lists'
+            });
+            let listNames = $(`<div class='list-names'>**Create New To Do List**</div>`);
+            let viewTasks = $(`<button class='view-tasks'>Create</button>`);
+            results.append(toDoLists);
+            toDoLists.append(listNames);
+            toDoLists.append(viewTasks);
         });
     });
 });
-
 //======================= End of Getting To Do Lists with Pre-existing Username ======================
 
 
