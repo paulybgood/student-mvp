@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS users, todolist, tasks CASCADE;
+DROP TABLE IF EXISTS users, todolist, tasks;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
