@@ -4,24 +4,63 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script defer src="/app.js"></script>
     <title>To Do List</title>
 </head>
 <body>
-    <div id="results">
-        <div>Please Enter Your Username</div>
-            <div>
-                <input type="text" placeholder="Enter Username" name="existing-username" id="existing-username" required>
-                <button id="search-user">Log In</button>
+    <div class='header'>
+        <div class='title-container'>
+            <div class='title'>Personalized To-Do Lists</div>
+        </div>
+        <div class='credentials'>
+            <div id="credentials">
+                <div>Please Enter Your Username:</div>
+                    <div>
+                        <input type="text" placeholder="Enter Username" name="existing-username" id="existing-username" required>
+                        <button id="search-user">Log In</button>
+                    </div>
+                
+                <div>Don't have an account? Register:</div>
+                <div>
+                    <input type="text" placeholder="Enter Username" name="new-username" id="new-username" required>
+                    <button id="register-user">Register</button>
+                </div>
             </div>
-        <br>
-        <br><br>
-        <div>Don't have an account? Create a free username</div>
-        <div>
-            <input type="text" placeholder="Enter Username" name="new-username" id="new-username" required>
-            <button id="register-user">Register</button>
         </div>
     </div>
+    
+    <div id="results">
+        <div class='homepage'>
+            <div>
+                <h1 class='detail-title'>Things You Can Do:</h1>
+                <ul class='details'>
+                    <li>Create a username so you can save your to-do lists and come back to them later</li>
+                    <li>Create as many to-do lists as you want</li>
+                    <li>Create as many tasks as you would like</li>
+                    <li>Delete to-do lists and tasks when you are done with them</li>
+                </ul>
+                <h1 class='detail-title'>How To Get Started:</h1>
+                <ul class='details'>
+                    <li>Create and Register a username in the top-right corner of the page</li>
+                    <li>Create your first to-do list by clicking the "Create To-Do List" Button</li>
+                    <li>View your newly created to-do list by clicking on the "View List" button</li>
+                    <li>Create a task by clicking on the "Create New Task" button</li>
+                    <li>Congratulations! You just successfully created your list. Enjoy!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+        
+    <div class='footer'>
+        <div class='column-footer'>
+            <div id='copyright'>2021 Paul Bialas Productions</div>
+        </div>
+        <div class='column-footer' >
+            <div id='school'>Special Thanks to Galvanize Inc.</div>
+        </div>
+    </div>
+
 </body>
 </html>
