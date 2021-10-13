@@ -44,33 +44,35 @@ $('#search-user').click (() => {
     });
 });
 //======================= End of Getting To Do Lists with Pre-existing Username ======================
-$('#register-user').click (() => {
-    userInput = $('#new-username').val();
-    console.log(userInput);
-    $.post('/api/users', {'username': userInput} , (data, status) => {
-        console.log(data);
-        results.empty();
-        let username = $(`<div class='username'>Username: ${data.username}</div>`)
-        results.append(username);
-    });
-});
-
-
 // $('#register-user').click (() => {
-//     let newUser = {"username": $('#new-username').val()};
-//     console.log(newUser);
-//     $.ajax({
-//         url: '/api/users',
-//         method: 'POST',
-//         data: newUser,
-//         success: function(data) {
-//             console.log(data);
-//             results.empty();
-//             let username = $(`<div class='username'>Username: ${data.username}</div>`)
-//             results.append(username);
-//         }
-//     })
+//     userInput = $('#new-username').val();
+
+//     console.log(userInput);
+//     $.post('/api/users', {'username': userInput}, (data, status) => {
+//         console.log(data);
+//         results.empty();
+//         let username = $(`<div class='username'>Username: ${data.username}</div>`)
+//         results.append(username);
+//     });
 // });
+
+
+$('#register-user').click (() => {
+    let newUser = {"username": $('#new-username').val()};
+    console.log(newUser);
+    $.ajax({
+        url: '/api/users',
+        method: 'POST',
+        data: JSON.stringify(newUser),
+        contentType: 'application/json',
+        success: function(data) {
+            console.log(data);
+            results.empty();
+            let username = $(`<div class='username'>Username: ${data.username}</div>`)
+            results.append(username);
+        }
+    })
+});
 
 
 //======================= Start of Creating and Adding User to Database ==========================
@@ -81,9 +83,9 @@ $('#register-user').click (() => {
 
 
 //======================= Start of Getting Pre-existing Tasks from To Do Lists =================
-// $('#results').on('click', 'button', () => {
-//     console.log(Number($('.view-tasks').val()));
-// })
+$('#results').on('click', 'button', (event) => {
+    console.log(Number($(event.target).val()));
+})
 
 
 //======================= End of Getting Tasks Pre-existing Tasks from To Do Lists =================
