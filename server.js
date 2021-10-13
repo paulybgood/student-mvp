@@ -36,7 +36,7 @@ app.get("/api/users/:username", (req, res) => {
     db.query("SELECT * FROM users WHERE username = $1", [username], (err, data) => {
         if (err) {
             res.end("The username is invalid or the username does not exist");
-        } else if (data.rowCount === 0) {
+        } else if (data.rows.length === 0) {
             res.status(404);
             res.setHeader('Content-Type', 'text/plain');
             res.end("The username is invalid or does not exist. Please create a username if you haven't already");
