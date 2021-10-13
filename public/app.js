@@ -1,7 +1,6 @@
 let userInput = '';
 const results = $('#results');
 
-
 //==================== Start of Getting To Do Lists with Pre-existing Username =======================
 $('#search-user').click (() => {
     //how to get the text value from the input on button click
@@ -16,36 +15,89 @@ $('#search-user').click (() => {
         //the user has and displaying the name
         $.get(`/api/todolist/${userData.id}`, (toDoListData) => {
             for (let i = 0; i < toDoListData.length; i++) {
-                console.log(toDoListData[i].name);
+                // console.log(toDoListData[i].name);
                 let toDoLists = $('<div></div>', {
-                    class: 'to-do-lists'
+                    class: 'to-do-lists',
+                    id: `${toDoListData[i].id}`
                 });
                 let listNames = $(`<div class='list-names'>${toDoListData[i].name}</div>`);
-                let viewTasks = $(`<button class='view-tasks'>See Tasks</button>`);
+                let viewTasks = $(`<button class='view-tasks' value=${toDoListData[i].id}>See Tasks</button>`);
                 results.append(toDoLists);
                 toDoLists.append(listNames);
                 toDoLists.append(viewTasks);
-
+                $.get(`/api/tasks/${toDoListData[i].id}`, (tasksData) => {
+                    console.log(tasksData);
+                    for (let j = 0; j < tasksData.length; j++) {
+                        let listTasks = $(`<div class='tasks'>${tasksData.description}`)
+                    }
+                })
             }
             let toDoLists = $('<div></div>', {
                 class: 'to-do-lists'
             });
             let listNames = $(`<div class='list-names'>**Create New To Do List**</div>`);
-            let viewTasks = $(`<button class='view-tasks'>Create</button>`);
+            let createNew = $(`<button id='create'>Create</button>`);
             results.append(toDoLists);
             toDoLists.append(listNames);
-            toDoLists.append(viewTasks);
+            toDoLists.append(createNew);
         });
     });
 });
 //======================= End of Getting To Do Lists with Pre-existing Username ======================
+$('#register-user').click (() => {
+    userInput = $('#new-username').val();
+    console.log(userInput);
+    $.post('/api/users', {'username': userInput} , (data, status) => {
+        console.log(data);
+        results.empty();
+        let username = $(`<div class='username'>Username: ${data.username}</div>`)
+        results.append(username);
+    });
+});
+
+
+// $('#register-user').click (() => {
+//     let newUser = {"username": $('#new-username').val()};
+//     console.log(newUser);
+//     $.ajax({
+//         url: '/api/users',
+//         method: 'POST',
+//         data: newUser,
+//         success: function(data) {
+//             console.log(data);
+//             results.empty();
+//             let username = $(`<div class='username'>Username: ${data.username}</div>`)
+//             results.append(username);
+//         }
+//     })
+// });
+
+
+//======================= Start of Creating and Adding User to Database ==========================
+
+
+//======================= Start of Creating and Adding User to Database ==========================
 
 
 
-
-
-//======================= Start of Getting Tasks Pre-existing Tasks from To Do Lists =================
-
+//======================= Start of Getting Pre-existing Tasks from To Do Lists =================
+// $('#results').on('click', 'button', () => {
+//     console.log(Number($('.view-tasks').val()));
+// })
 
 
 //======================= End of Getting Tasks Pre-existing Tasks from To Do Lists =================
+
+
+
+
+
+//============================== Start of Creating a New To Do List ==============================
+// $('#results').on('click', '#createNew', () => {
+//     console.log('hello world');
+// });
+
+
+
+
+//============================== End of Creating a New To Do List ==============================
