@@ -124,6 +124,12 @@
         align-items: center;
         margin: 5px;
     }
+
+    #new-task {
+        width: 400px;
+        text-align: center;
+    }
+
     .view-tasks {
         display: flex;
         justify-content: center;
