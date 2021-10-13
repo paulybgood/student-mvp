@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 
-//=============================== Start of GET Request ==================================
+//=============================== Start of GET Request for All Users ===============================
 app.get('/api/users', (req, res) => {
     pool.query("SELECT * FROM users", (err, result) => {
         console.log(result);
@@ -24,8 +24,13 @@ app.get('/api/users', (req, res) => {
         // }
     });
 });
+//=============================== End of GET Request for All Users ===============================
 
 
+
+
+
+//=============================== Start of GET Request for Users by Username ===============================
 app.get("/api/users/:username", (req, res) => {
     const username = req.params.username;
     pool.query("SELECT * FROM users WHERE username = $1", [username], (err, data) => {
@@ -42,7 +47,13 @@ app.get("/api/users/:username", (req, res) => {
         }
     });
 });
+//=============================== End of GET Request for Users by Username ===============================
 
+
+
+
+
+//============================ Start of GET Request for To-Do Lists by User ID ===========================
 app.get("/api/todolist/:user_id", (req, res) => {
     const userID = req.params.user_id;
     pool.query("SELECT * FROM todolist WHERE user_id = $1", [userID], (err, result) => {
@@ -57,10 +68,47 @@ app.get("/api/todolist/:user_id", (req, res) => {
         }
     })
 })
+//============================ End of GET Request for To-Do Lists by User ID =============================
 
 
 
-//=============================== End of GET Request ====================================
+
+
+//============================ Start of GET Request for Tasks by To-Do List ID ===========================
+app.get("/api/tasks/:todolist_id", (req, res) => {
+    const toDoListID = req.params.todolist_id;
+    pool.query("SELECT * FROM tasks WHERE todolist_id = $1", [toDoListID], (err, result) => {
+        if (err) {
+
+        } else if (result === undefined) {
+
+        } else {
+            res.status(200);
+            res.setHeader('Content-Type', 'application/json');
+            res.json(result.rows);
+        }
+    })
+})
+//============================ End of GET Request for Tasks by To-Do List ID ===========================
+
+
+
+
+
+//========================== Start of POST Request for a new User =============================
+app.post("/api/users", (req, res) => {
+    const username = req.body.username;
+    pool.query(
+            "INSERT INTO users(username) VALUES($1) RETURNING *", [username], (err, result) => {
+                res.status(201);
+                res.setHeader('Content-Type', 'application/json');
+                res.json(result.rows[0]);
+            }
+    );
+});
+
+
+//========================== Start of POST Request for a new User =============================
 
 
 
