@@ -1,18 +1,18 @@
 require('dotenv').config()
 const express = require('express');
 const app = express();
-// const db = require("./database-setup/db_configuration.js");
-const { Pool } = require('pg');
-const pool = new Pool({
-    database: 'todolist'
-});
+const db = require("./database-setup/db_configuration.js");
+// const { Pool } = require('pg');
+// const pool = new Pool({
+//     database: 'todolist'
+// });
 app.use(express.json());
 app.use(express.static('public'));
 
 
 //=============================== Start of GET Request for All Users ===============================
 app.get('/api/users', (req, res) => {
-    pool.query("SELECT * FROM users", (err, result) => {
+    db.query("SELECT * FROM users", (err, result) => {
         console.log(result);
         // if (result.rows === undefined) {
         //     res.status(404)
@@ -33,7 +33,7 @@ app.get('/api/users', (req, res) => {
 //=============================== Start of GET Request for Users by Username ===============================
 app.get("/api/users/:username", (req, res) => {
     const username = req.params.username;
-    pool.query("SELECT * FROM users WHERE username = $1", [username], (err, data) => {
+    db.query("SELECT * FROM users WHERE username = $1", [username], (err, data) => {
         if (err) {
             res.end("The username is invalid or the username does not exist");
         } else if (data.rowCount === 0) {
@@ -56,7 +56,7 @@ app.get("/api/users/:username", (req, res) => {
 //============================ Start of GET Request for To-Do Lists by User ID ===========================
 app.get("/api/todolist/:user_id", (req, res) => {
     const userID = req.params.user_id;
-    pool.query("SELECT * FROM todolist WHERE user_id = $1", [userID], (err, result) => {
+    db.query("SELECT * FROM todolist WHERE user_id = $1", [userID], (err, result) => {
         if (err) {
 
         } else if (result === undefined) {
@@ -77,7 +77,7 @@ app.get("/api/todolist/:user_id", (req, res) => {
 //============================ Start of GET Request for Tasks by To-Do List ID ===========================
 app.get("/api/tasks/:todolist_id", (req, res) => {
     const toDoListID = req.params.todolist_id;
-    pool.query("SELECT * FROM tasks WHERE todolist_id = $1", [toDoListID], (err, result) => {
+    db.query("SELECT * FROM tasks WHERE todolist_id = $1", [toDoListID], (err, result) => {
         if (err) {
 
         } else if (result === undefined) {
@@ -99,7 +99,7 @@ app.get("/api/tasks/:todolist_id", (req, res) => {
 app.post("/api/users", (req, res) => {
     const username = req.body.username;
     console.log(req.body);
-    pool.query(
+    db.query(
             "INSERT INTO users(username) VALUES($1) RETURNING *", [username], (err, result) => {
                 res.status(201);
                 res.setHeader('Content-Type', 'application/json');
@@ -108,8 +108,7 @@ app.post("/api/users", (req, res) => {
     );
 });
 
-
-//========================== Start of POST Request for a new User =============================
+//========================== End of POST Request for a new User =============================
 
 
 
@@ -120,7 +119,7 @@ app.post("/api/todolist", (req, res) => {
     const listName = req.body.name;
     const userID = req.body.user_id;
     console.log(req.body);
-    pool.query(
+    db.query(
             "INSERT INTO todolist(name, user_id) VALUES($1, $2) RETURNING *", [listName, userID], (err, result) => {
                 res.status(201);
                 res.setHeader('Content-Type', 'application/json');
@@ -140,7 +139,7 @@ app.post("/api/tasks", (req, res) => {
     const toDoListID = req.body.todolist_id
     console.log(toDoListID)
     console.log(req.body);
-    pool.query(
+    db.query(
             "INSERT INTO tasks(description, todolist_id) VALUES($1, $2) RETURNING *", [taskDescription, toDoListID], (err, result) => {
                 res.status(201);
                 res.setHeader('Content-Type', 'application/json');
@@ -157,7 +156,7 @@ app.post("/api/tasks", (req, res) => {
 //===================== Start of DELETE Request for To Do List ======================
 app.delete('/api/todolist/:id', (req,res) => {
     const toDoListID = req.params.id;
-    pool.query('DELETE FROM todolist WHERE id = $1 RETURNING *', [toDoListID], (err, result) => {
+    db.query('DELETE FROM todolist WHERE id = $1 RETURNING *', [toDoListID], (err, result) => {
         if(err || result.rowCount === 0) {
             res.status(400)
                 .setHeader("Content-Type", "text/plain")
@@ -176,7 +175,7 @@ app.delete('/api/todolist/:id', (req,res) => {
 //======================= Start of DELETE Request for a task ============================
 app.delete('/api/tasks/:id', (req,res) => {
     const taskID = req.params.id;
-    pool.query('DELETE FROM tasks WHERE id = $1 RETURNING *', [taskID], (err, result) => {
+    db.query('DELETE FROM tasks WHERE id = $1 RETURNING *', [taskID], (err, result) => {
         if(err || result.rowCount === 0) {
             res.status(400)
                 .setHeader("Content-Type", "text/plain")
