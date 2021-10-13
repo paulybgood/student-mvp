@@ -1,5 +1,6 @@
 let userInput = '';
 const results = $('#results');
+let tasksContainer = '';
 
 //==================== Start of Getting To Do Lists with Pre-existing Username =======================
 $('#search-user').click (() => {
@@ -9,7 +10,7 @@ $('#search-user').click (() => {
     // get the object user info from the users table to grab the user_id for the next request
     $.get(`/api/users/${userInput}`, (userData) => {
         results.empty();
-        let username = $(`<div class='username'>Username: ${userData.username}</div>`)
+        let username = $(`<div class='username'>${userData.username}'s Lists</div>`)
         results.append(username);
         //using the user_id from previous GET request to look up all of the to do lists that 
         //the user has and displaying the name
@@ -20,23 +21,21 @@ $('#search-user').click (() => {
                     class: 'to-do-lists',
                     id: `${toDoListData[i].id}`
                 });
+                tasksContainer = $(`<div class='task-container ${toDoListData[i].id}'></div>`);
                 let listNames = $(`<div class='list-names'>${toDoListData[i].name}</div>`);
                 let viewTasks = $(`<button class='view-tasks' value=${toDoListData[i].id}>See Tasks</button>`);
+                let deleteList = $(`<button class='delete-list' value=${toDoListData[i].id}>Delete List</button>`);
                 results.append(toDoLists);
+                results.append(tasksContainer);
                 toDoLists.append(listNames);
                 toDoLists.append(viewTasks);
-                $.get(`/api/tasks/${toDoListData[i].id}`, (tasksData) => {
-                    console.log(tasksData);
-                    for (let j = 0; j < tasksData.length; j++) {
-                        let listTasks = $(`<div class='tasks'>${tasksData.description}`)
-                    }
-                })
+                toDoLists.append(deleteList);
             }
             let toDoLists = $('<div></div>', {
                 class: 'to-do-lists'
             });
-            let listNames = $(`<div class='list-names'>**Create New To Do List**</div>`);
-            let createNew = $(`<button id='create'>Create</button>`);
+            let listNames = $(`<input type="text" placeholder="Enter New List Name" name="new-list" id="new-list" required>`);
+            let createNew = $(`<button class='create'>Create</button>`);
             results.append(toDoLists);
             toDoLists.append(listNames);
             toDoLists.append(createNew);
@@ -44,19 +43,12 @@ $('#search-user').click (() => {
     });
 });
 //======================= End of Getting To Do Lists with Pre-existing Username ======================
-// $('#register-user').click (() => {
-//     userInput = $('#new-username').val();
-
-//     console.log(userInput);
-//     $.post('/api/users', {'username': userInput}, (data, status) => {
-//         console.log(data);
-//         results.empty();
-//         let username = $(`<div class='username'>Username: ${data.username}</div>`)
-//         results.append(username);
-//     });
-// });
 
 
+
+
+
+//======================= Start of Creating and Adding User to Database ==========================
 $('#register-user').click (() => {
     let newUser = {"username": $('#new-username').val()};
     console.log(newUser);
@@ -73,22 +65,64 @@ $('#register-user').click (() => {
         }
     })
 });
-
-
-//======================= Start of Creating and Adding User to Database ==========================
-
-
 //======================= Start of Creating and Adding User to Database ==========================
 
 
 
 //======================= Start of Getting Pre-existing Tasks from To Do Lists =================
 $('#results').on('click', 'button', (event) => {
-    console.log(Number($(event.target).val()));
+    let classIdentifier = event.target.className;
+    let toDoListID = Number($(event.target).val());
+    // let taskID = Number($(event.target).val());
+    // console.log(event.target.className);
+    // console.log(Number($(event.target).val()));
+    // const myContainer = $(`.${toDoListID}`);
+    // console.log(myContainer);
+    if (classIdentifier === 'view-tasks') {
+        $.get(`/api/tasks/${toDoListID}`, (taskData) => {
+            for (let i = 0; i < taskData.length; i++) {
+                console.log(taskData[i]);
+                let listTasks = $(`<div class='tasks 300${taskData[i].id}' id=${toDoListID}>${taskData[i].description}</div>`)
+                let deleteTask = $(`<button class='delete-task' value=${taskData[i].id}>Delete Task</button>`)
+                // myContainer[0].append(listTasks);
+                results.append(listTasks);
+                listTasks.append(deleteTask);
+            }
+
+        })
+//======================= End of Getting Tasks Pre-existing Tasks from To Do Lists =================        
+   
+    
+//============================== Start of Deleting a To Do List ==============================
+    } else if (classIdentifier === "delete-list") {
+        // console.log('accessed the delete list button')
+        $.ajax({
+            url: `/api/todolist/${toDoListID}`,
+            method: 'DELETE',
+            success: function(data) {
+                console.log(data);
+                const deleteList = $(`#${toDoListID}`);
+                const deleteTasks = $('.tasks');
+                deleteList.remove();
+                deleteTasks.remove();
+            }
+        })
+    } else if (classIdentifier === "delete-task") {
+        let taskID = Number($(event.target).val());
+        $.ajax({
+            url: `/api/tasks/${taskID}`,
+            method: 'DELETE',
+            success: function(data) {
+                console.log(data);
+                const deleteTask = $(`.300${taskID}`);
+                deleteTask.remove();
+            }
+        })
+    }
 })
 
+//============================== End of Deleting a To Do List ==============================
 
-//======================= End of Getting Tasks Pre-existing Tasks from To Do Lists =================
 
 
 
@@ -103,3 +137,6 @@ $('#results').on('click', 'button', (event) => {
 
 
 //============================== End of Creating a New To Do List ==============================
+
+
+
