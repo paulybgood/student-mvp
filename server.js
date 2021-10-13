@@ -98,6 +98,7 @@ app.get("/api/tasks/:todolist_id", (req, res) => {
 //========================== Start of POST Request for a new User =============================
 app.post("/api/users", (req, res) => {
     const username = req.body.username;
+    console.log(req.body);
     pool.query(
             "INSERT INTO users(username) VALUES($1) RETURNING *", [username], (err, result) => {
                 res.status(201);
