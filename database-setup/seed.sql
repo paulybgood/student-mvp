@@ -10,7 +10,7 @@ INSERT INTO todolist(name, user_id) VALUES('House Chores', 2);
 --Inserts info into tasks table
 INSERT INTO tasks(description, todolist_id) VALUES('Create the basic HTML', 1);
 INSERT INTO tasks(description, todolist_id) VALUES('Create the the serverside code to handle HTTP requests', 1);
-INSERT INTO tasks(description, todolist_id) VALUES('Milk', 3);
-INSERT INTO tasks(description, todolist_id) VALUES('Bread', 3);
-INSERT INTO tasks(description, todolist_id) VALUES('Cheese', 3);
-INSERT INTO tasks(description, todolist_id) VALUES('Do the laundry', 2);
+INSERT INTO tasks(description, todolist_id) VALUES('Milk', 2);
+INSERT INTO tasks(description, todolist_id) VALUES('Bread', 2);
+INSERT INTO tasks(description, todolist_id) VALUES('Cheese', 2);
+INSERT INTO tasks(description, todolist_id) VALUES('Do the laundry', 3);
