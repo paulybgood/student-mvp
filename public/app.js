@@ -62,7 +62,7 @@ $('#register-user').click (() => {
         success: function(data) {
             console.log(data);
             results.empty();
-            let username = $(`<div class='username'>Username: ${data.username}</div>`)
+            let username = $(`<div class='username'>${data.username}'s Lists</div>`)
             let toDoLists = $('<div></div>', {
                 class: 'to-do-lists'
             });
