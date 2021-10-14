@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+* html {
+    font-family: 'Karla', sans-serif !important;
+}
+
     /*.header {
         clear: both;
         height: 200px;
