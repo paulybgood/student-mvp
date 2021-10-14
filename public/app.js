@@ -63,7 +63,16 @@ $('#register-user').click (() => {
             console.log(data);
             results.empty();
             let username = $(`<div class='username'>Username: ${data.username}</div>`)
+            let toDoLists = $('<div></div>', {
+                class: 'to-do-lists'
+            });
+            let createListNames = $(`<input type="text" placeholder="Enter New List Name" name="new-list" id="new-list" required>`);
+            let createNew = $(`<button class='create-list' value=${data.id}>Create</button>`);
             results.append(username);
+            results.append(toDoLists);
+            toDoLists.append(createListNames);
+            toDoLists.append(createNew);
+            
         }
     })
 });
